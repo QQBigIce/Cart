@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>listProduct</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <style>
+        table{
+            margin: 30px auto;
+            border-collapse: collapse;
+        }
+        table td{
+            border: 1px solid black;
+        }
+        table td.id{
+            width: 2em;
+        }
+        table td.name{
+            width: 10em;
+        }
+        table td.price{
+            width: 3em;
+        }
+        table td.buy{
+            width: 18em;
+        }
+        table td button{
+            margin-left: 1em;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <table id="listTable">
+        <tr>
+            <td class="id">id</td>
+            <td class="name">名称</td>
+            <td class="price">价格</td>
+            <td class="buy">购买</td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var url = "listProduct";
+        $.get(
+            url,
+            function (data) {
+                var json = JSON.parse(data);
+                for (var i in json) {
+                    var id = json[i].id;
+                    var name = json[i].name;
+                    var price = json[i].price;
+                    var result = "<tr>" +
+                        "<td>" + id + "</td>" +
+                        "<td>" + name + "</td>" +
+                        "<td>" + price + "</td>" +
+                        "<td>" + "数量: <input type='text' id='num?" + id + "'>" + "<button id='buy?" +id + "'>" + "购买</button>" + "</td>" +
+                        "</tr>";
+                    $("#listTable").append(result);
+                }
+            }
+        )
+    });
+</script>
+</body>
+</html>
