@@ -59,9 +59,9 @@ public abstract class Dao {
     public abstract <T> void update(T t);
     //根据name查询
     public <T> List<T> get(String name) {
-        List<T> list = new ArrayList<>();
+        List<T> list = null;
         String sql = "select * from " + this.table +
-                " where name = " + name;
+                " where name = '" + name + "'";
         try (Connection c = getConnection();
              Statement s = c.createStatement();) {
 

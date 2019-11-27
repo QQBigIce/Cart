@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "LoginServlet")
+//@WebServlet(name = "LoginServlet")
 public class LoginServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String name = request.getParameter("user");
@@ -30,6 +30,7 @@ public class LoginServlet extends HttpServlet {
 
 
                 pw.print("登录成功，欢迎您" + user.getName());
+                System.out.println(user.getName());
                 pw.close();
                 return;
             }

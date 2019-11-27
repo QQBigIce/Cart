@@ -16,7 +16,7 @@ public class LoginFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
 
         String uri = request.getRequestURI();
-        if (uri.endsWith("index.html") || uri.endsWith("login.html")){
+        if (uri.endsWith("index.html") || uri.endsWith("login.html") || uri.equals("/") || uri.endsWith("loginSuc")){
             chain.doFilter(req, resp);
             return;
         }
