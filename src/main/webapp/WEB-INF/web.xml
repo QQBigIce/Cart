@@ -33,4 +33,20 @@
     <servlet-name>login</servlet-name>
     <url-pattern>/loginSuc</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>orderItemAdd</servlet-name>
+    <servlet-class>com.how2java.orderItem.OrderItemAdd</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>orderItemAdd</servlet-name>
+    <url-pattern>/orderItemAdd</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>orderItemList</servlet-name>
+    <servlet-class>com.how2java.orderItem.OrderItemList</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>orderItemList</servlet-name>
+    <url-pattern>/orderItemList</url-pattern>
+  </servlet-mapping>
 </web-app>

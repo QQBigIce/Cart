@@ -1,6 +1,6 @@
-package com.how2java.product;
+package com.how2java.orderItem;
 
-import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
-@WebServlet(name = "ProductServlet")
-public class ProductServlet extends HttpServlet {
+@WebServlet(name = "OrderItemList")
+public class OrderItemList extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -22,11 +22,14 @@ public class ProductServlet extends HttpServlet {
     }
 
     protected void list(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        List<Product> list = ProductDAO.getInstance().list();
-        String s = JSON.toJSONString(list);
+        List<OrderItem> list = (List<OrderItem>) request.getSession().getAttribute("ois");
+        if (null == list)
+            return;
+        String jsonString = JSONObject.toJSONString(list);
+        System.out.println(jsonString);
         response.setContentType("text/html;charset=utf-8");
         PrintWriter pw = response.getWriter();
-        pw.print(s);
+        pw.print(jsonString);
         pw.close();
     }
 }

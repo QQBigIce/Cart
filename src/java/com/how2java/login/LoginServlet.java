@@ -28,9 +28,7 @@ public class LoginServlet extends HttpServlet {
                 session.setAttribute("name", user.getName());
                 session.setAttribute("password", user.getPassword());
 
-
                 pw.print("登录成功，欢迎您" + user.getName());
-                System.out.println(user.getName());
                 pw.close();
                 return;
             }

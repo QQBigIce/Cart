@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CartList</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+</head>
+<body>
+<div class="cartList">
+    <table id="cartTable">
+        <tr>
+            <td>商品名称</td>
+            <td>单价</td>
+            <td>数量</td>
+            <td>小计</td>
+        </tr>
+    </table>
+</div>
+<script type="text/javascript">
+    $(function () {
+        var url = "orderItemList";
+        $.get(
+            url,
+            function (data) {
+                var json = JSON.parse(data);
+                console.log(data);
+                for (i in json) {
+                    var name = json[i].product.name;
+                    var price = json[i].product.price;
+                    var num = json[i].num;
+                    var str = "<tr>" +
+                        "<td>" + name + "</td>" +
+                        "<td>" + price + "</td>" +
+                        "<td>" + num + "</td>" +
+                        "<td>" + price*num + "</td>" +
+                        "</tr>";
+                    $("#cartTable").append(str);
+                }
+            }
+        )
+    });
+</script>
+</body>
+</html>

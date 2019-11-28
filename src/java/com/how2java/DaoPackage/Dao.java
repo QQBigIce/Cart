@@ -57,6 +57,26 @@ public abstract class Dao {
     }
     // 修改数据库中的数据
     public abstract <T> void update(T t);
+
+    //根据id查询
+    public <T> T get(int id){
+        String sql = "select * from " + this.table + " where id = " + id;
+        try(Connection c = getConnection();
+            Statement s = c.createStatement();) {
+
+            ResultSet rs = s.executeQuery(sql);
+            if (rs.next()){
+                String name = rs.getString("name");
+                float price = rs.getFloat("price");
+                return (T) new Product(id, name, price);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     //根据name查询
     public <T> List<T> get(String name) {
         List<T> list = null;
