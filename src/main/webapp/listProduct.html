@@ -55,7 +55,7 @@
                         "<td>" + id + "</td>" +
                         "<td id='name'>" + name + "</td>" +
                         "<td>" + price + "</td>" +
-                        "<td>" + "数量: <input type='text' id='num?" + id + "'>" + "<button id='buy?" +id + "'>" + "购买</button>" + "</td>" +
+                        "<td>" + "数量: <input type='text' id='num?" + id + "'>" + "<button id='buy?" +id + "'>" + "加入购物车</button>" + "</td>" +
                         "</tr>";
                     $("#listTable").append(result);
                 }
@@ -73,6 +73,7 @@
                order,
                function (data) {
                    var message = "您购买了" + num + "件" + name;
+                   $(this).prop("readOnly", true);
                    $("#listMain").append(message);
                }
            );

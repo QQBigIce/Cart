@@ -32,12 +32,17 @@
                         "<td>" + name + "</td>" +
                         "<td>" + price + "</td>" +
                         "<td>" + num + "</td>" +
-                        "<td>" + price*num + "</td>" +
+                        "<td class='total'>" + price*num + "</td>" +
                         "</tr>";
                     $("#cartTable").append(str);
                 }
-            }
-        )
+                var totalPrice = 0;
+                $(".total").each(function () {
+                    var total = $(this).text();
+                    totalPrice += parseFloat(total);
+                });
+                $(".cartList").append("总计：" + totalPrice);
+            });
     });
 </script>
 </body>

@@ -34,6 +34,12 @@ public class OrderItemAdd extends HttpServlet {
             ois = new ArrayList<>();
             request.getSession().setAttribute("ois", ois);
         }
+        for (OrderItem orderItem : ois) {
+            if (orderItem.getProduct().getId() == pid){
+                orderItem.setNum(orderItem.getNum() + num);
+                return;
+            }
+        }
         ois.add(oi);
 //        response.sendRedirect();
     }
