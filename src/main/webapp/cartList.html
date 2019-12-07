@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <title>CartList</title>
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+    <style>
+        table#cartTable{
+            border-collapse: collapse;
+        }
+        table#cartTable td{
+            border: 1px solid black;
+        }
+    </style>
 </head>
 <body>
 <div class="cartList">
@@ -13,18 +21,25 @@
             <td>单价</td>
             <td>数量</td>
             <td>小计</td>
+            <td>删除</td>
         </tr>
     </table>
+    <span>总计：</span>
+    <span id="total"></span>
+    <button id="createOrder">创建订单</button>
 </div>
 <script type="text/javascript">
     $(function () {
+        var id;
         var url = "orderItemList";
+        //等待页面加载完成之后，向后端请求Session中的数据，请求完成后显示
         $.get(
             url,
             function (data) {
                 var json = JSON.parse(data);
                 console.log(data);
                 for (i in json) {
+                    id = json[i].product.id;
                     var name = json[i].product.name;
                     var price = json[i].product.price;
                     var num = json[i].num;
@@ -32,7 +47,9 @@
                         "<td>" + name + "</td>" +
                         "<td>" + price + "</td>" +
                         "<td>" + num + "</td>" +
-                        "<td class='total'>" + price*num + "</td>" +
+                        "<td class='total'>" + parseFloat(price*num).toFixed(2)  + "</td>" +
+                        "<td>" + "<button id='" + id + "'>" + "删除" + "</button>" +
+                        "</td>" +
                         "</tr>";
                     $("#cartTable").append(str);
                 }
@@ -41,8 +58,41 @@
                     var total = $(this).text();
                     totalPrice += parseFloat(total);
                 });
-                $(".cartList").append("总计：" + totalPrice);
+                $("#total").text(totalPrice.toFixed(2));
             });
+        // 每个订单项后的删除按钮按下，通知后端删除Session中的此条数据，并在html中删除
+        $("#cartTable").on("click", "button", function () {
+            url = "orderItemDel";
+            var product = {"product": {"id": parseInt($(this).attr("id")),
+                "name": $(this).parent().prev().prev().prev().prev().text(),
+                "price": parseFloat($(this).parent().prev().prev().prev().text())},
+                "num": parseInt($(this).parent().prev().prev().text())
+            };
+            var del = $(this).parent().parent();
+            $.get(
+                url,
+                {"orderItem": JSON.stringify(product)},
+                function (data) {
+                    var s = data.toString();
+                    if (s.indexOf("成功") != -1){
+                        del.remove();
+                        var totalPrice = parseFloat($("#total").text()) - (product.product.price * product.num);
+                        alert(totalPrice);
+                        $("#total").text(totalPrice);
+                    }
+                }
+            );
+        });
+        // 当创建订单按钮按下，请求后端把Session中的数据写入到数据库中
+        $("#createOrder").on("click", function () {
+            url = "createOrder";
+           $.get(
+               url,
+               function (data) {
+                   var s = data.toString();
+                        $("#cartList").text(s);
+               });
+        });
     });
 </script>
 </body>

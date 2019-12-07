@@ -42,7 +42,7 @@ public class UserDAO extends Dao {
 
             ResultSet rs = ps.getGeneratedKeys();
             if (rs.next()) {
-                return ((T) new User(rs.getInt("id"), rs.getString("name"), rs.getString("password")));
+                return ((T) new User(rs.getInt(1), rs.getString(2), rs.getString(3)));
             }
 
         } catch (SQLException e) {

@@ -26,7 +26,7 @@ public class OrderItemList extends HttpServlet {
         if (null == list)
             return;
         String jsonString = JSONObject.toJSONString(list);
-        System.out.println(jsonString);
+//        System.out.println(jsonString);
         response.setContentType("text/html;charset=utf-8");
         PrintWriter pw = response.getWriter();
         pw.print(jsonString);

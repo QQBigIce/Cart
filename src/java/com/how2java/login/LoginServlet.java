@@ -25,8 +25,10 @@ public class LoginServlet extends HttpServlet {
         for (User user1 : list) {
             if (user1.getName().equals(user.getName()) && (user1.getPassword().equals(user.getPassword()))){
                 HttpSession session = request.getSession();
-                session.setAttribute("name", user.getName());
-                session.setAttribute("password", user.getPassword());
+                session.setAttribute("user", user);
+                user.setId(user1.getId());
+//                session.setAttribute("name", user.getName());
+//                session.setAttribute("password", user.getPassword());
 
                 pw.print("登录成功，欢迎您" + user.getName());
                 pw.close();

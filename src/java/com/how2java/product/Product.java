@@ -1,6 +1,7 @@
 package com.how2java.product;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Product implements Serializable {
     private int id;
@@ -43,5 +44,15 @@ public class Product implements Serializable {
     @Override
     public String toString() {
         return ("id: " + this.id + "\tname: " + this.name + "\tprice: " + this.price + "\n");
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return  false;
+        Product product = (Product) o;
+        return id == product.id &&
+                Float.compare(product.price, price) == 0 &&
+                this.name.equals(product.getName());
     }
 }

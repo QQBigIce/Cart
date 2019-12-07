@@ -21,7 +21,7 @@
             {"user": JSON.stringify(json)},
             function (data) {
                 $("#state").text(JSON.stringify(data));
-                for (var date = (new Date().getTime()); new Date().getTime() - date < 2000;);
+                // for (var date = (new Date().getTime()); new Date().getTime() - date < 2000;);
                 var data1 = data.toString();
                 if (data1.indexOf("成功") != -1){
                     window.location.replace("index.html");

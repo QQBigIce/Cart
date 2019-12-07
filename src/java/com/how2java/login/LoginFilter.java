@@ -20,8 +20,12 @@ public class LoginFilter implements Filter {
             chain.doFilter(req, resp);
             return;
         }
-
-        String name = (String) request.getSession().getAttribute("name");
+        if (request.getSession().getAttribute("user") == null) {
+            response.sendRedirect("login.html");
+            return;
+        }
+        User user = (User) request.getSession(false).getAttribute("user");
+        String name = (String) user.getName();
         if (null == name){
             response.sendRedirect("login.html");
             return;

@@ -68,12 +68,13 @@
            var num = $(this).prev("input").val();
            var name = $(this).parent().prev().prev().text();
            var order = {"pid": pid, "num": num};
+           var $this = $(this);
            $.get(
                url,
                order,
                function (data) {
                    var message = "您购买了" + num + "件" + name;
-                   $(this).prop("readOnly", true);
+                   $this.prop("disabled", true);
                    $("#listMain").append(message);
                }
            );
